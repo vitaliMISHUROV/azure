@@ -1,14 +1,39 @@
 version: '3'
 services:
-  #database
+  # database
   db.postgresql:
     container_name: db.postgresql
-    #name даных - на основе которого будет создан контейнер
-    #https://hub.docker.com/_/postgres
     image: postgres:16
     environment:
       - POSTGRES_USER=vitali_ROG
       - POSTGRES_PASSWORD=MESSI15161718
       - POSTGRES_DB=pv111
+    env_file:
+      - .env
     ports:
       - "5432:5432"
+    volumes:
+      - ./volumes/db.postgresql:/var/lib/postgresql
+# inMemoy DB использование кєш и обмена сообще...
+  redis:
+    image: redis:latest
+    ports:
+      - "6379:6379"
+    volumes:
+      - ./volumes/redis:/data
+
+
+# Uncomment the following sections if needed
+#   mongo:
+#     image: mongo
+#     ports:
+#       - "27017:27017"
+#     env_file:
+#       - .env
+
+#   mongo-express:
+#     image: mongo-express
+#     ports:
+#       - "8081:8081"
+#     env_file:
+#       - .env
