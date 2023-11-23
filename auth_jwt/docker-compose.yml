@@ -7,3 +7,18 @@ services:
       - ./nginx.conf:/etc/nginx/nginx.conf:ro
     ports:
       - "80:80"
+#The container will handle authentication and authorization.
+  .auth:
+    build: ./backend/auth
+    volumes:
+      - ./backend/auth/src:/usr/src/app
+    command: sh -c "npm install && npm start"
+    container_name: api.auth
+  #The container will need to identify who has approached it.
+
+  api.posts:
+    build: ./backend/posts
+    volumes:
+      - ./backend/posts/src:/usr/src/app
+    command: sh -c "npm install && npm start"
+    container_name: api.posts
