@@ -1,5 +1,16 @@
 version: '3'
 services:
+  front.public:
+    build: ./frontend/public
+    volumes:
+      - ./frontend/public:/usr/src/app
+    command: sh -c "npm install && npm start"
+
+  front:
+    build: ./frontend/admin
+    volumes:
+      - ./frontend/admin:/usr/src/app
+    command: sh -c "npm install && npm start"
 
   api.gateway:
     image: nginx:alpine
@@ -27,14 +38,25 @@ services:
     environment:
       - SERVER_NAME=api.comments
 
-  api.likes:
+
+  api.likes.synny:
     build: ./backend/likes
     volumes:
       - ./backend/likes:/usr/src/app
     command: sh -c "npm install && npm start"
-    container_name: api_likes
+    container_name: api_likes_synny  # Unique name
     environment:
       - SERVER_NAME=api.likes
+
+  api.likes.jonny:
+    build: ./backend/likes
+    volumes:
+      - ./backend/likes:/usr/src/app
+    command: sh -c "npm install && npm start"
+    container_name: api_likes_jonny  # Unique name
+    environment:
+      - SERVER_NAME=api.likes.jonny
+
 
   api.posts:
     build: ./backend/posts
