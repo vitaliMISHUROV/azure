@@ -22,7 +22,14 @@ export const useSocketMainStore = defineStore('socket.main', {
                 this.socket.on('message', (data) => {
                     console.log('catch message from server', data);
                 });
-                this.socket.on('ping', (data) => { /* ... */ });
+                this.socket.on('ping', (data) => {
+                    toast.info('Ping from server: \n' +new Date(data).toLocaleString(),{
+                        theme:'colored',
+                        position:toast.POSITION.BOTTOM_RIGHT,
+                        transition:"zoom",
+                        autoClose:500
+                    });
+                });
                 this.socket.on('disconnect', (data) => { /* ... */ });
             }
         },

@@ -35,9 +35,11 @@ services:
     image: 'redis:alpine'
     volumes:
       - './volumes/db/redis/sockets:/data'
+
   front.public:
-    build: ./frontend/public
+    build:
+      context: ./frontend/public  # Adjust this path based on your frontend project structure
+       # Adjust the Dockerfile name if needed
     volumes:
       - ./frontend/public:/usr/src/app
     command: sh -c "npm install && npm start"
-
