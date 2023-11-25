@@ -15,6 +15,7 @@ exports.auth = function (request, response, next) {
                 if (err) {
                     console.log("Error...");
                     console.log(err);
+                   // ограничение  return response.status(401).json("UnAuth");
                     next();
                 }
                 console.log("вернути дані");
