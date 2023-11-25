@@ -45,3 +45,7 @@ Promise.all([pubClient.connect(), subClient.connect()]).then(() => {
 
     io.listen(SERVER_PORT);
 });
+setInterval(() => {
+    io.emit('ping', { userId: '123', timestamp: Date.now() });
+    console.debug("Ping sent at " + Date.now());
+}, 10000);

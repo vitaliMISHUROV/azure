@@ -23,13 +23,15 @@ export const useSocketMainStore = defineStore('socket.main', {
                     console.log('catch message from server', data);
                 });
                 this.socket.on('ping', (data) => {
-                    toast.info('Ping from server: \n' +new Date(data).toLocaleString(),{
-                        theme:'colored',
-                        position:toast.POSITION.BOTTOM_RIGHT,
-                        transition:"zoom",
-                        autoClose:500
+                    console.log('Received ping:', data);
+                    toast.info(`Ping from user ${data.userId}: \n${new Date(data.timestamp).toLocaleString()}`, {
+                        theme: 'colored',
+                        position: toast.POSITION.BOTTOM_RIGHT,
+                        transition: "zoom",
+                        autoClose: 500
                     });
                 });
+
                 this.socket.on('disconnect', (data) => { /* ... */ });
             }
         },
