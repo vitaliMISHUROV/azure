@@ -1,4 +1,6 @@
 let jwt = require('jsonwebtoken');
+let rabbitMQ_notification = require('../../helpers/rabbit');
+let socketEmitter = require('../../helpers/socket_emitter');
 // отримати секретний ключ
 const JWT_KEY = process.env.JWT_KEY;
 
@@ -11,6 +13,7 @@ exports.login = function (request, response) {
     // отримуємо дані з тіла запиту
     console.log(request.body);
     let user = request.body;
+    rabbitMQ_notification('user.login', user);
 
     // користувач існує (пара співпала), user те, що потрібно
 //create jwt token easy key
