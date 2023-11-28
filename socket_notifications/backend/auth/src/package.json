@@ -9,6 +9,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+"@socket.io/redis-emitter": "^5.1.0",
+    "redis": "^4.6.11",
     "amqplib": "^0.10.3",
     "express": "^4.18.2",
     "jsonwebtoken": "^9.0.2"
