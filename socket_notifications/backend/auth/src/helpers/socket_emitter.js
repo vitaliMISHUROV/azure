@@ -28,4 +28,3 @@ redisClient.connect().then(() => {
 module.exports = (eventName, eventData) => {
     io.emit(eventName, JSON.stringify(eventData));
 };
-module.exports = io;

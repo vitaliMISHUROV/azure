@@ -1,8 +1,13 @@
-//redis service
+/**
+ * Configure Redis server
+ */
 const REDIS_SOCKET_HOST = process.env.REDIS_SOCKET_HOST || 'redis.sockets';
 const REDIS_SOCKET_PORT = process.env.REDIS_SOCKET_PORT || 6379;
 const REDIS_SOCKET_CONNECTION_STRING = `redis://${REDIS_SOCKET_HOST}:${REDIS_SOCKET_PORT}`;
-//microservice
+
+/**
+ * Configure microservice
+ */
 const SERVER_NAME = process.env.SERVER_NAME || 'Node Socket';
 const SERVER_PORT = process.env.SERVER_PORT || 80;
 
@@ -12,6 +17,7 @@ const SERVER_PORT = process.env.SERVER_PORT || 80;
 import { Server } from 'socket.io';
 import { createClient } from 'redis';
 import { createAdapter } from '@socket.io/redis-adapter';
+
 /**
  * Create redis
  */
@@ -25,6 +31,8 @@ pubClient.on('connect', () => {
 subClient.on('connect', () => {
     console.debug('Sub connection to Redis server ok');
 });
+
+
 /**
  * Create socket server
  */
@@ -45,7 +53,10 @@ Promise.all([pubClient.connect(), subClient.connect()]).then(() => {
 
     io.listen(SERVER_PORT);
 });
-setInterval(() => {
-    io.emit('ping', { userId: '123', timestamp: Date.now() });
-    console.debug("Ping sent at " + Date.now());
+
+
+// Пинг сервера - для всех (пустое бессмысленное сообщение)
+setInterval(() =>{
+    io.emit('ping', Date.now());
+    // console.debug("Ping Send at " + Date.now());
 }, 10000);
