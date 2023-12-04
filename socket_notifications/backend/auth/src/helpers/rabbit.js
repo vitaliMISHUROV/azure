@@ -4,13 +4,13 @@
 const RABBITMQ_DEFAULT_USER = process.env.RABBITMQ_DEFAULT_USER || 'root';
 const RABBITMQ_DEFAULT_PASS = process.env.RABBITMQ_DEFAULT_PASS || 'password';
 const RABBITMQ_SERVER = process.env.RABBITMQ_SERVER || 'rabbit.mq';
+const RABBITMQ_QUEUE_NOTIFICATIONS = process.env.RABBITMQ_QUEUE_NOTIFICATIONS || 'notifications';
 const RABBITMQ_PORT = process.env.RABBITMQ_PORT || 5672;
 const RABBITMQ_CONNECTION_URI = `amqp://${RABBITMQ_DEFAULT_USER}:${RABBITMQ_DEFAULT_PASS}@${RABBITMQ_SERVER}:${RABBITMQ_PORT}`;
 
-const RABBITMQ_QUEUE_NOTIFICATIONS = process.env.RABBITMQ_QUEUE_NOTIFICATIONS || 'notifications';
-
 
 const amqp = require ('amqplib/callback_api.js');
+const events = require("events");
 
 let connection;
 let channel;
@@ -42,11 +42,12 @@ amqp.connect(RABBITMQ_CONNECTION_URI, {}, async (errorConnect, conn) => {
 
 
 });
-
-module.exports = (eventName, eventData) => {
+module.exports = (eventName, eventData)=>{
     let msg = {
         name: eventName,
         data: eventData
-    }
-    channel.sendToQueue (RABBITMQ_QUEUE_NOTIFICATIONS, Buffer.from(JSON.stringify(msg)));
+    };
+
+    channel.sendToQueue(RABBITMQ_QUEUE_NOTIFICATIONS, Buffer.from(JSON.stringify(msg)));
 };
+

@@ -25,7 +25,7 @@ exports.login = function (request, response) {
 
     // Будем считать - что пользователь таки есть (пара совпала) user - то что нужно
 
-    // Создать самый простой ключ
+
     let token = jwt.sign(
         {
             "user": user,
@@ -41,5 +41,5 @@ exports.login = function (request, response) {
     };
 
     // Возвращаю статус 200 (все прошло ОК) и результат работы
-    return response.status(200).json(result);
+     return response.status(200).json(result);
 }

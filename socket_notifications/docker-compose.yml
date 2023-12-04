@@ -9,6 +9,7 @@ services:
     ports:
       - "80:80"
 
+
   api.auth:
     build: ./backend/auth
     volumes:
@@ -17,6 +18,23 @@ services:
     container_name: api.auth
     env_file:
       - .env
+  notifications.router:
+    container_name: notifications.router
+    build: ./notifications/notification_router
+    volumes:
+      - ./notifications/notification_router/src:/usr/src/app
+    command: sh -c "npm install && npm start"
+    env_file:
+      - .env
+  notifications.email:
+    container_name: notifications.email
+    build: ./notifications/email
+    volumes:
+      - ./notifications/email/src:/usr/src/app
+    command: sh -c "npm install && npm start"
+    env_file:
+      - .env
+
 
   socket.jonny:
     build: ./notifications/websocket
