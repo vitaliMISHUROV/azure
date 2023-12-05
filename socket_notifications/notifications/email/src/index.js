@@ -63,7 +63,7 @@ amqp.connect(RABBITMQ_CONNECTION_URI, {}, async (errorConnect, connection) => {
                         },
 
                     });
-
+//куди відправити повідомлення  message recipient
                     const mailOptions ={
                         from:MAIL_FROM_ADDRESS,
                         to:'vitalmish-ipt28@lll.kpi.ua',
