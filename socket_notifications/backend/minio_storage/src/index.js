@@ -18,7 +18,7 @@ const urlencodedParser = express.urlencoded({extended:false});
 
 
 let uploadAvatar = require ('./controllers/avatar')
-app.post("/api/upload/avatar", urlencodedParser, uploadAvatar)
+app.post("/api/minio/upload/avatar", urlencodedParser, uploadAvatar)
 
 
 // определяем роутеры
