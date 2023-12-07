@@ -41,6 +41,10 @@ amqp.connect(RABBITMQ_CONNECTION_URI, {}, async (errorConnect, connection) => {
                 console.debug(notification);
 
                 switch (notification.name){
+                    case 'ai.computer.vision':
+                        socketEmitter(notification.name, notification.data);
+                        channel.sendToQueue(RABBITMQ_QUEUE_NOTIFICATIONS_EMAIL,Buffer.from(JSON.stringify(notification)));
+                        break;
                     case 'user.login':
                         socketEmitter(notification.name, notification.data);
                         channel.sendToQueue(RABBITMQ_QUEUE_NOTIFICATIONS_EMAIL,Buffer.from(JSON.stringify(notification)));

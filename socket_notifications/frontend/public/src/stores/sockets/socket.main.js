@@ -33,6 +33,9 @@ export const useSocketMainStore = defineStore('socket.main', {
                 console.log(data);
             });
 
+
+
+
             // Пинг с сервера
             this.socket.on('ping', (data) => {
                 toast.info('Ping from server: \n' + new Date(data).toLocaleString(), {
